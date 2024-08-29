@@ -1,0 +1,30 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: messaging-sms
+    ports:
+      - "3000:3000"
+    environment:
+      BROKER_URL: redis://redis:6379/0
+      SEND_QUEUE: messages:send:sms
+      RECEIVE_QUEUE: messages:received
+      GATEWAY_URL: https://sms.capcom.me/api/3rdparty/v1/
+      WEBHOOK_PORT: 3000
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  redis:
+    image: redis:7
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  redis-data:
