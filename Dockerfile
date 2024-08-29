@@ -34,11 +34,6 @@ EXPOSE 3000
 
 # Define environment variables
 ENV NODE_ENV=production
-ENV BROKER_URL=redis://localhost:6379/0
-ENV SEND_QUEUE=messages:send:sms
-ENV RECEIVE_QUEUE=messages:received
-ENV GATEWAY_URL=https://sms.capcom.me/api/3rdparty/v1/
-ENV WEBHOOK_PORT=3000
 
 # Start the app
 CMD ["node", "dist/index.js"]
