@@ -1,0 +1,32 @@
+{
+  "name": "@car-qr-link/messaging-telegram",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "telegram",
+    "messaging",
+    "carqr",
+    "car-qr-link"
+  ],
+  "author": "Aleksandr Soloshenko <admin@carqr.link>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/node": "^22.5.1",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@car-qr-link/apis": "github:car-qr-link/apis",
+    "@car-qr-link/messaging-base": "github:car-qr-link/messaging-base",
+    "dotenv": "^16.4.5",
+    "grammy": "^1.29.0"
+  }
+}
