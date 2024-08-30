@@ -42,7 +42,7 @@ export class ReceiverService {
         //     await ctx.answerCallbackQuery();
         // });
 
-        this.telegram.start();
+        this.telegram.start({ drop_pending_updates: true });
 
         this.logger.info('ReceiverService started');
     }
