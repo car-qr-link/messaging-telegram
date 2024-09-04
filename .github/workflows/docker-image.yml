@@ -13,17 +13,34 @@ on:
 
 jobs:
   docker:
+    permissions:
+      packages: write
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # - name: Update package version
+      #   run: |
+      #     PREVERSION=${GITHUB_REF_NAME#v}
+      #     VERSION=${PREVERSION:-0.0.0}
+      #     sed -i "s/\"version\": \".*\"/\"version\": \"${VERSION}\"/" package.json
+
+      - name: Fix repository name
+        env:
+          REPOSITORY: ${{ github.repository }}
+          ORGANIZATION: ${{ github.repository_owner }}
+        run: |
+          export REPO_NAME="${ORGANIZATION//-}${REPOSITORY#${ORGANIZATION}}"
+          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
 
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: |
-            ${{ github.repository }}
+            ${{ env.REPO_NAME }}
             ghcr.io/${{ github.repository }}
           tags: |
             type=ref,event=branch
